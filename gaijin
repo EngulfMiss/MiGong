@@ -1,0 +1,62 @@
+import java.util.Scanner;
+
+/**
+ * @author XXX
+ *
+ */
+
+public class Main {
+    static int[][] nums;
+    static int len;
+    static int MINWAY;
+    static int SP=2;
+    public static void main (String[] args) {
+        Scanner input=new Scanner(System.in);
+        len=input.nextInt();
+        MINWAY=len*len;
+        nums=new int[len][len];
+        for (int i=0;i<len;i++)
+        {
+            for (int j=0;j<len;j++)
+            {
+                nums[i][j]=input.nextInt();
+            }
+        }
+        findway(1,1,0);
+        if(MINWAY==len*len) {
+            System.out.println("No solution");
+        }
+        else {
+            System.out.println(MINWAY);
+        }
+    }
+    public static void findway(int x,int y,int count) {
+        if(x==len-SP&&y==len-SP)
+        {
+            MINWAY=Math.min(count,MINWAY);
+        }
+        else
+        {
+            nums[x][y]=1;
+            if(nums[x-1][y]==0)
+            {
+                findway(x-1,y,count+1);
+            }
+            if(nums[x+1][y]==0)
+            {
+                findway(x+1,y,count+1);
+            }
+            if(nums[x][y-1]==0)
+            {
+                findway(x,y-1,count+1);
+            }
+            if(nums[x][y+1]==0)
+            {
+                findway(x,y+1,count+1);
+            }
+            nums[x][y]=0;
+        }
+
+    }
+
+}
